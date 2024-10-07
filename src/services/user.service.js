@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const  mongoose  = require("mongoose");
+const mongoose = require("mongoose");
 const register = async (body) => {
   return User.create(body);
 };
@@ -25,14 +25,14 @@ const getUser = async () => {
 const findId = async (userid) => {
   const userWithTasks = await User.aggregate([
     {
-      $match: { _id: new mongoose.Types.ObjectId(userid) } // Use 'new' to instantiate ObjectId
+      $match: { _id: new mongoose.Types.ObjectId(userid) }
     },
     {
       $lookup: {
-        from: "tasks", // Correct collection name
+        from: "tasks",
         localField: "_id",
         foreignField: "user_id",
-        as: "tasks" // Array of tasks will be named 'tasks'
+        as: "tasks"
       }
     }
   ]);
