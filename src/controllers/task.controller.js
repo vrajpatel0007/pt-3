@@ -8,7 +8,7 @@ const createtask = async (req, res) => {
     "==================================== createtask ===================================="
   );
   try {
-    const userExists = await user_service.findId(req.body._id);
+    const userExists = await user_service.findId(req.body.id);
     console.log("🚀 ~ createtask ~ userExists:", userExists);
 
     if (!userExists) {
@@ -16,20 +16,18 @@ const createtask = async (req, res) => {
     }
     const taskCount = await task_service.taskCount(req.body._id);
     console.log("🚀 ~ createtask ~ taskCount:", taskCount)
-    if(taskCount >=10){
-      res.status(400).json({ message: "Task limit exceeded" });
+    if (taskCount >= 10) {
+      return res.status(400).json({ message: "Task limit exceeded" });
     }
     const body = {
       Title: req.body.Title,
       Description: req.body.Description,
       dueDate: req.body.dueDate,
-      user_id: req.body._id,
+      user_id: req.body.id,
     };
     const task = await task_service.createtask(body);
     console.log("🚀 ~ createtask ~ taskid:", task._id);
-    return res
-      .status(200)
-      .json({ message: "Task created successfully", data: task });
+    return res.status(200).json({ message: "Task created successfully", data: task });
   } catch (error) {
     console.error("Error in createtask:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -108,8 +106,8 @@ const taskupdate = async (req, res) => {
     const body = {};
     if (req.body) {
       body.Title = req.body.Title,
-      body.Description = req.body.Description,
-      body.dueDate = req.body.dueDate;
+        body.Description = req.body.Description,
+        body.dueDate = req.body.dueDate;
     }
     console.log("🚀 ~ taskupdate ~ body:", body);
     const update = await task_service.updatatask(taskid, body);

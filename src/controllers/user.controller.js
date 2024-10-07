@@ -38,10 +38,15 @@ const register = async (req, res) => {
 // profile
 const profile = async (req, res) => {
   try {
+    console.log("🚀 ~ profile ~ req.user._id:", req.user._id)
     const user = await user_service.findId(req.user._id);
     console.log("🚀 ~ profile ~ user:", user);
-    return res.status(200).json({ message: "User Profile", user: user });
+    if (!user || user.length === 0) {
+      return res.status(404).json({message:"user not found"})
+    }
+    return res.status(200).json({ message: "User Profile", user:  user[0] });
   } catch (error) {
+    console.log("🚀 ~ profile ~ error:", error)
     return res.status(400).json({ message: error });
   }
 };

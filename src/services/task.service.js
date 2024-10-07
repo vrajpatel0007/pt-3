@@ -23,7 +23,7 @@ const updatatask = async (taskid, body) => {
 };
 
 const taskCount =  async (id)=>{
-    return await Task.countDocuments({ userId: id });
+    return await Task.countDocuments({ user_id: id });
 }
 
 module.exports = {
