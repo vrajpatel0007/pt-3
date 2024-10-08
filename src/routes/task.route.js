@@ -8,8 +8,8 @@ const { authUser,authorizeAdmin } = require("../middleware/auth");
 router.post("/createtask",  authUser,authorizeAdmin, task_controller.createtask);
 router.get("/tasklist", authUser,authorizeAdmin, task_controller.tasklist);
 router.get("/useridbytask", authUser, task_controller.userbyidt);
-router.put("/taskupdate/:taskId",authUser, task_controller.taskupdate);
-router.delete("/taskdelete/:taskId", authUser,authorizeAdmin, task_controller.taskdelete);
+router.put("/taskupdate",authUser, task_controller.taskupdate);
+router.delete("/taskdelete", authUser,authorizeAdmin, task_controller.taskdelete);
 
 
 

@@ -74,7 +74,7 @@ const taskdelete = async (req, res) => {
   console.log(
     "==================================== taskdelete ===================================="
   );
-  const taskid = req.params.taskId;
+  const taskid = req.body.taskId;
   console.log("🚀 ~ taskdelete ~ taskid:", taskid);
   try {
     const taskExists = await task_service.taskByid(taskid);
@@ -93,7 +93,7 @@ const taskupdate = async (req, res) => {
   console.log(
     "==================================== taskupdate ===================================="
   );
-  const taskid = req.params.taskId;
+  const taskid = req.body.taskId;
   const task = req.body;
   console.log("🚀 ~ taskupdate ~ task:", task);
   console.log("🚀 ~ taskupdate ~ taskid:", taskid);
